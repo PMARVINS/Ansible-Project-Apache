@@ -3,23 +3,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('build') {
             steps {
-            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/PMARVINS/Ansible-Project-Apache.git']]])            
-
+            echo 'building the application...'          
           }
         }
         
-        stage ("terraform init") {
+        stage ("test") {
             steps {
-                sh ('terraform init') 
+                echo 'testing the application...'
             }
         }
         
-        stage ("terraform Action") {
+        stage ("deploy") {
             steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve') 
+                echo 'deploying the application...' 
            }
         }
     }
